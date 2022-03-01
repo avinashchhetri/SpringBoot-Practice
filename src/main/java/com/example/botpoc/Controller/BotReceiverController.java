@@ -2,6 +2,7 @@ package com.example.botpoc.Controller;
 
 import com.example.botpoc.Entity.BotContent;
 import com.example.botpoc.Entity.BotReceiver;
+import com.example.botpoc.Service.BotReceiverService;
 import com.example.botpoc.serviceImpl.BotReceiverServiceImp;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 public class BotReceiverController {
 
     @Autowired
-    BotReceiverServiceImp botReceiverServiceImp;
+    BotReceiverService botReceiverServiceImp;
 
     @PostMapping("/save")
     public BotReceiver saveBotReceiver(@RequestBody BotReceiver botReceiver){

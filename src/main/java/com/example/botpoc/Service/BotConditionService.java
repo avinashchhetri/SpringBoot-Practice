@@ -1,22 +1,27 @@
 package com.example.botpoc.Service;
 
 import com.example.botpoc.Entity.BotCondition;
+import com.example.botpoc.dto.InputRequest;
 
 import java.util.List;
 
 public interface BotConditionService {
 
 
-    public BotCondition saveBotCondition(BotCondition b);
+    BotCondition saveBotCondition(InputRequest<BotCondition> request);
 
-    public List<BotCondition> getAllCondition();
+    List<BotCondition> getAllCondition();
 
-    public BotCondition getById(int id);
+     BotCondition getById(int id);
 
-    public void deleteAll();
+     void deleteAll();
 
 
-    public void deleteConditionById(int id);
+    void deleteConditionById(int id);
 
-    public BotCondition updateBotCondition(BotCondition botCondition);
+
+    BotCondition updateBotCondition(InputRequest<BotCondition> request, int id);
+
+//    BotCondition findByName(String name);
+
 }

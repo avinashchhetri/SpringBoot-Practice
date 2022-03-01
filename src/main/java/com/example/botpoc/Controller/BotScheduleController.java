@@ -2,6 +2,7 @@ package com.example.botpoc.Controller;
 
 import com.example.botpoc.Entity.BotSchedule;
 import com.example.botpoc.Repo.BotScheduleRepo;
+import com.example.botpoc.Service.BotScheduleService;
 import com.example.botpoc.serviceImpl.BotScheduleServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/schedule")
 public class BotScheduleController {
     @Autowired
-    BotScheduleServiceImp botScheduleServiceImp;
+    BotScheduleService botScheduleServiceImp;
 
     @PostMapping("/save")
     public BotSchedule saveBotSchedule(@RequestBody BotSchedule s){

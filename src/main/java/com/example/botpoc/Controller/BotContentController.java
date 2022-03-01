@@ -2,6 +2,7 @@ package com.example.botpoc.Controller;
 
 import com.example.botpoc.Entity.BotCondition;
 import com.example.botpoc.Entity.BotContent;
+import com.example.botpoc.Service.BotContentService;
 import com.example.botpoc.serviceImpl.BotContentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("api/content")
 public class BotContentController {
     @Autowired
-    BotContentServiceImp botContentServiceImp;
+    BotContentService botContentServiceImp;
 
     @PostMapping("/save")
     public BotContent saveBotContent(@RequestBody BotContent b){

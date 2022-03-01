@@ -4,12 +4,13 @@ import com.example.botpoc.Entity.BotCondition;
 import com.example.botpoc.Repo.BotConditionRepo;
 //import com.example.botpoc.Service.BotConditionService;
 import com.example.botpoc.Service.BotConditionService;
+import com.example.botpoc.dto.InputRequest;
 import com.example.botpoc.loggers.GlobalResources;
-import org.apache.tomcat.jni.Global;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -20,13 +21,25 @@ public class BotConditionServiceImp implements BotConditionService {
     @Autowired
     BotConditionRepo botConditionRepo;
 
-    @Override
-    public BotCondition saveBotCondition(BotCondition b){
+//    @Override
+//    public BotCondition saveBotCondition(BotCondition b){
+//
+//        String methodName= "saveBotConditions";
+//        logger.info(methodName + "Called");
+//        BotCondition B = botConditionRepo.save(b);
+//        return B;
+//    }
 
-        String methodName= "saveBotConditions";
-        logger.info(methodName + "Called");
-        BotCondition B = botConditionRepo.save(b);
-        return B;
+
+    @Override
+    public BotCondition saveBotCondition(InputRequest<BotCondition> request){
+        String currentUser = request.getLoggedInUser();
+        request.setTimeZone(Calendar.getInstance().getTimeZone().getDisplayName());
+        BotCondition botCondition = request.getBotCondition();
+        botCondition.setCreatedBy(currentUser);
+        return botConditionRepo.save(botCondition);
+
+
     }
 
     @Override
@@ -59,15 +72,34 @@ public class BotConditionServiceImp implements BotConditionService {
         botConditionRepo.deleteById(id);
     }
 
+//    @Override
+//    public BotCondition saveBotCondition(InputRequest<BotCondition> request){
+//        String currentUser = request.getLoggedInUser();
+//        request.setTimeZone(Calendar.getInstance().getTimeZone().getDisplayName());
+//        BotCondition botCondition = request.getBotCondition();
+//        botCondition.setCreatedBy(currentUser);
+//        return botConditionRepo.save(botCondition);
+
+
     @Override
-    public BotCondition updateBotCondition(BotCondition botCondition) {
+    public BotCondition updateBotCondition(InputRequest<BotCondition> request ,  int id) {
         String methodName= "updateBotCondition";
         logger.info(methodName + "Called");
-        BotCondition existingCondition = botConditionRepo.findById(botCondition.getId()).orElse(botCondition);
+        String currentUser = request.getLoggedInUser();
+        BotCondition botCondition = request.getBotCondition();
+        BotCondition existingCondition = botConditionRepo.findById(id).orElse(null);
         existingCondition.setCondition(botCondition.getCondition());
         existingCondition.setTimeFrame(botCondition.getTimeFrame());
-        return botConditionRepo.save(existingCondition);
+        return botConditionRepo.saveAndFlush(botCondition);
 
     }
+
+//
+//    @Override
+//    public BotCondition findByName(String name) {
+//        BotCondition botCondition = botConditionRepo.findByName(name);
+//        return botCondition;
+//    }
+
 
 }

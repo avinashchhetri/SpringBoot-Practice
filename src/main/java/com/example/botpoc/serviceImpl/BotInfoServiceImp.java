@@ -3,13 +3,14 @@ package com.example.botpoc.serviceImpl;
 import com.example.botpoc.Entity.BotInfo;
 import com.example.botpoc.Repo.BotInfoRepo;
 //import com.example.botpoc.Service.BotInfoService;
+import com.example.botpoc.Service.BotInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BotInfoServiceImp {
+public class BotInfoServiceImp implements BotInfoService {
 
     @Autowired
     BotInfoRepo botInfoRepo;
@@ -23,6 +24,11 @@ public class BotInfoServiceImp {
     public void deleteAll() {
         botInfoRepo.deleteAll();
 
+    }
+
+    @Override
+    public void deleteById(int id) {
+        botInfoRepo.deleteById(id);
     }
 
     public BotInfo updateBotInfo(BotInfo botInfo) {
